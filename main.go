@@ -39,10 +39,12 @@ func main() {
 
 //
 func ready(s *discordgo.Session, event *discordgo.Ready) {
-	err := s.UpdateStatus(0, "idle")
+	/*err := s.UpdateStatus(0, "idle")
 	if err != nil {
 		fmt.Println(err)
-	}
+	}*/
+
+	s.UpdateStatus(0, "Works!")
 }
 
 func messageCreate(session *discordgo.Session, msg *discordgo.MessageCreate) {
