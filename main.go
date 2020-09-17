@@ -12,13 +12,8 @@ import (
 func main() {
 	Token := ""
 
-	fmt.Println("Hi")
+	fmt.Println("Main event successfuly recieved")
 	client, err := discordgo.New("Bot " + Token)
-	if err != nil {
-		panic(err)
-	}
-
-	err = client.Open()
 	if err != nil {
 		panic(err)
 	}
@@ -27,24 +22,29 @@ func main() {
 
 	client.AddHandler(messageCreate)
 
+	err = client.Open()
+	if err != nil {
+		panic(err)
+	}
+
 	// Wait here until CTRL-C or other term signal is received.
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
 
+	fmt.Println("Shutting down the system...\n... Successful")
 	// Cleanly close down the Discord session.
 	client.Close()
 }
 
-//
+// The ready event, just like in discordjs
 func ready(s *discordgo.Session, event *discordgo.Ready) {
-	/*err := s.UpdateStatus(0, "idle")
+	err := s.UpdateStatus(0, "Accepting Orders | Illusion")
 	if err != nil {
 		fmt.Println(err)
-	}*/
-
-	s.UpdateStatus(0, "Works!")
+	}
+	fmt.Println("Ready event successfuly recieved")
 }
 
 func messageCreate(session *discordgo.Session, msg *discordgo.MessageCreate) {
